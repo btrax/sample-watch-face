@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WatchActivity"
+    tools:deviceIds="wear_round">
+
+    <!-- background image 背景画像 -->
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/image_0" />
+
+    <!-- hour hand 短針 -->
+    <ImageView
+        android:id="@+id/hour_hand"
+        android:layout_width="8dp"
+        android:layout_height="115dp"
+        android:layout_centerInParent="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/hour_hand" />
+
+    <!-- minute hand 長針 -->
+    <ImageView
+        android:id="@+id/minute_hand"
+        android:layout_width="8dp"
+        android:layout_height="165dp"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/minute_hand" />
+
+    <!-- hands pin 針の留め具 -->
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_centerInParent="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/watch_pin" />
+
+</RelativeLayout>

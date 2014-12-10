@@ -14,7 +14,6 @@ import java.util.Calendar;
 /**
  * Activity for WatchFace. please set AndroidManifest.xml
  * 盤面用のActivity。AndroidManifest.xmlに設定すること。
- *
  */
 public class WatchFaceActivity extends Activity {
 
@@ -39,11 +38,15 @@ public class WatchFaceActivity extends Activity {
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
+                // retrieve view
+                // ビューの取得
                 mMinuteHand = (ImageView) stub.findViewById(R.id.minute_hand);
                 mHourHand = (ImageView) stub.findViewById(R.id.hour_hand);
                 mBackground = (ImageView) stub.findViewById(R.id.background);
 
-                onTimeUpdated(Calendar.getInstance()); // 盤面初期化
+                // initiate watch face
+                // 盤面初期化
+                onTimeUpdated(Calendar.getInstance());
             }
         });
 
@@ -53,16 +56,6 @@ public class WatchFaceActivity extends Activity {
     protected void onStart() {
         super.onStart();
         registerReceiver(mTimeInfoReceiver, mTimeIntentFilter);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
     }
 
     @Override
@@ -77,15 +70,10 @@ public class WatchFaceActivity extends Activity {
         onTimeUpdated(Calendar.getInstance()); // 再度盤面が表示されるときに時間を更新
     }
 
-    @Override
-    protected void onDestroy(){
-        super.onDestroy();
-        onTimeUpdated(Calendar.getInstance()); // 再度盤面が表示されるときに時間を更新
-    }
-
     private BroadcastReceiver mTimeInfoReceiver = new BroadcastReceiver() {
 
         /**
+         * called every minute.
          * このメソッドが1分ごとに呼ばれる
          */
         @Override
@@ -119,22 +107,14 @@ public class WatchFaceActivity extends Activity {
      * 盤面の背景を更新する
      */
     private void updateBackground(Calendar cal) {
-        final int imgResId;
-        int min = cal.get(Calendar.MINUTE);
-        switch (min % 2) {
-            case 0:
-                imgResId = R.drawable.image_0;
-                break;
-            case 1:
-                imgResId = R.drawable.image_1;
-                break;
-            case 2:
-                imgResId = R.drawable.image_2;
-                break;
-            default:
-                imgResId = R.drawable.image_0;
-        }
 
-        mBackground.setImageResource(imgResId);
+        int[] imgResIds = {
+                R.drawable.image_0,
+                R.drawable.image_1,
+                R.drawable.image_2,
+        };
+
+        int min = cal.get(Calendar.MINUTE);
+        mBackground.setImageResource(imgResIds[min % imgResIds.length]);
     }
 }
